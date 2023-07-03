@@ -17,8 +17,13 @@ const Home = () => {
       setBoard(res);
     }
   };
+  const [turnColor, setTurnColor] = useState(1);
+  const changeColor = () => {
+    setTurnColor(2 / turnColor);
+  };
   const onClick = async (x: number, y: number) => {
     await apiClient.board.$post({ body: { x, y } });
+    await changeColor();
     await fetchBoard();
   };
   useEffect(() => {
@@ -27,7 +32,6 @@ const Home = () => {
       clearInterval(cancelId);
     };
   }, []);
-  const turnColor = 1;
   if (!board || !user) return <Loading visible />;
 
   return (
