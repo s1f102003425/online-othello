@@ -4,6 +4,8 @@ import { Loading } from 'src/components/Loading/Loading';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
+//import type { UserId } from '../../server/commonTypesWithClient/branded';
+//import { colorDict, colorUseCase } from '../../server/useCase/colorUseCase';
 import { userAtom } from '../atoms/user';
 import { Cell } from '../components/Cell';
 import styles from './index.module.css';
@@ -33,6 +35,7 @@ const Home = () => {
     };
   }, []);
   if (!board || !user) return <Loading visible />;
+  //const userID: UserId = colorDict;
 
   return (
     <>
@@ -45,7 +48,7 @@ const Home = () => {
             ))
           )}
         </div>
-        <p>{turnColor === 1 ? '黒' : '白'}の手盤です</p>
+        <h1>{turnColor === 1 ? '黒' : '白'}の手盤です</h1>
       </div>
     </>
   );
