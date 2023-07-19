@@ -6,9 +6,11 @@ import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
 //import type { UserId } from '../../server/commonTypesWithClient/branded';
 //import { colorDict, colorUseCase } from '../../server/useCase/colorUseCase';
+import { turnColor } from '../../server/useCase/boardUseCase';
 import { userAtom } from '../atoms/user';
 import { Cell } from '../components/Cell';
 import styles from './index.module.css';
+//import {boardUseCase} from "../../server/useCase/boardUseCase"
 
 const Home = () => {
   const [user] = useAtom(userAtom);
@@ -19,13 +21,13 @@ const Home = () => {
       setBoard(res);
     }
   };
-  const [turnColor, setTurnColor] = useState(1);
-  const changeColor = () => {
+  //const [turnColor, setTurnColor] = useState(1);
+  /*const changeColor = () => {
     setTurnColor(2 / turnColor);
-  };
+  };*/
   const onClick = async (x: number, y: number) => {
     await apiClient.board.$post({ body: { x, y } });
-    await changeColor();
+    //await changeColor();
     await fetchBoard();
   };
   useEffect(() => {
@@ -35,7 +37,7 @@ const Home = () => {
     };
   }, []);
   if (!board || !user) return <Loading visible />;
-  //const userID: UserId = colorDict;
+  //const userId: UserId = colorDict.black;
 
   return (
     <>
@@ -55,3 +57,4 @@ const Home = () => {
 };
 
 export default Home;
+/*<h1>{colorUseCase.createColor(userId: UserId) === 1 ? '黒' : '白'}の手盤です</h1> */
