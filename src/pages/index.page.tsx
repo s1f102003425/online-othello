@@ -6,7 +6,6 @@ import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
 //import type { UserId } from '../../server/commonTypesWithClient/branded';
 //import { colorDict, colorUseCase } from '../../server/useCase/colorUseCase';
-import { turnColor } from '../../server/useCase/boardUseCase';
 import { userAtom } from '../atoms/user';
 import { Cell } from '../components/Cell';
 import styles from './index.module.css';
@@ -20,6 +19,18 @@ const Home = () => {
     if (res !== null) {
       setBoard(res);
     }
+  };
+  const [turn, setTurn] = useState(1);
+  const calculateTurnFromBoard = (copyBoard: number[][]) => {
+    let stoneCount = 0;
+    for (const row of copyBoard) {
+      for (const element of row) {
+        if (element !== 0) {
+          stoneCount++;
+        }
+      }
+    }
+    return stoneCount % 2 === 0 ? 1 : 2;
   };
   //const [turnColor, setTurnColor] = useState(1);
   /*const changeColor = () => {
@@ -36,6 +47,12 @@ const Home = () => {
       clearInterval(cancelId);
     };
   }, []);
+  useEffect(() => {
+    if (board) {
+      const currentTurn = calculateTurnFromBoard(board);
+      setTurn(currentTurn);
+    }
+  }, [board]);
   if (!board || !user) return <Loading visible />;
   //const userId: UserId = colorDict.black;
 
@@ -50,7 +67,7 @@ const Home = () => {
             ))
           )}
         </div>
-        <h1>{turnColor === 1 ? '黒' : '白'}の手盤です</h1>
+        <h1>{turn === 1 ? '黒' : '白'}の手盤です</h1>
       </div>
     </>
   );
