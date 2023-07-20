@@ -4,12 +4,9 @@ import { Loading } from 'src/components/Loading/Loading';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
-//import type { UserId } from '../../server/commonTypesWithClient/branded';
-//import { colorDict, colorUseCase } from '../../server/useCase/colorUseCase';
 import { userAtom } from '../atoms/user';
 import { Cell } from '../components/Cell';
 import styles from './index.module.css';
-//import {boardUseCase} from "../../server/useCase/boardUseCase"
 
 const Home = () => {
   const [user] = useAtom(userAtom);
@@ -20,6 +17,7 @@ const Home = () => {
       setBoard(res);
     }
   };
+  // 手番表示するためのの関数を設定
   const [turn, setTurn] = useState(1);
   const calculateTurnFromBoard = (copyBoard: number[][]) => {
     let stoneCount = 0;
@@ -32,13 +30,8 @@ const Home = () => {
     }
     return stoneCount % 2 === 0 ? 1 : 2;
   };
-  //const [turnColor, setTurnColor] = useState(1);
-  /*const changeColor = () => {
-    setTurnColor(2 / turnColor);
-  };*/
   const onClick = async (x: number, y: number) => {
     await apiClient.board.$post({ body: { x, y } });
-    //await changeColor();
     await fetchBoard();
   };
   useEffect(() => {
@@ -47,6 +40,7 @@ const Home = () => {
       clearInterval(cancelId);
     };
   }, []);
+  // 手番を表示する
   useEffect(() => {
     if (board) {
       const currentTurn = calculateTurnFromBoard(board);
@@ -54,7 +48,6 @@ const Home = () => {
     }
   }, [board]);
   if (!board || !user) return <Loading visible />;
-  //const userId: UserId = colorDict.black;
 
   return (
     <>
@@ -74,4 +67,3 @@ const Home = () => {
 };
 
 export default Home;
-/*<h1>{colorUseCase.createColor(userId: UserId) === 1 ? '黒' : '白'}の手盤です</h1> */
