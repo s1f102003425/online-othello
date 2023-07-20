@@ -38,8 +38,8 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'error',
-    complexity: ['error', 20], // ゴールは5
-    'max-depth': ['error', 5], // ゴールは3
+    complexity: ['error', 5], // ゴールは5
+    'max-depth': ['error', 3], // ゴールは3
     'max-nested-callbacks': ['error', 3],
     'max-lines': ['error', 200],
   },
