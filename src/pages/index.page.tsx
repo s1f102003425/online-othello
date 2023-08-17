@@ -36,6 +36,15 @@ const Home = () => {
     await apiClient.board.$post({ body: { x, y } });
     await fetchBoard();
   };
+  const restartClick = async () => {
+    if (board !== undefined) {
+      await apiClient.restart.$post({});
+      await fetchBoard;
+      console.log('ok');
+    } else {
+      console.log('error');
+    }
+  };
   useEffect(() => {
     const cancelId = setInterval(fetchBoard, 500);
     return () => {
@@ -61,6 +70,9 @@ const Home = () => {
               <Cell key={`${x}-${y}`} x={x} y={y} color={color} onClick={() => onClick(x, y)} />
             ))
           )}
+        </div>
+        <div className={styles['restart-button']} onClick={() => restartClick()}>
+          Restart
         </div>
         {/* <h1>{turn === 1 ? '黒' : '白'}の手盤です</h1> */}
       </div>

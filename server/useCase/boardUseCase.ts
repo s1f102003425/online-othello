@@ -2,9 +2,9 @@ import type { UserId } from '$/commonTypesWithClient/branded';
 import { candidateUseCase } from './candidateUseCase';
 import { colorUseCase } from './colorUseCase';
 
-const board: number[][] = [
+const defaultBoard: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, -0, 0],
   [0, 0, 0, 0, -1, 0, 0, 0],
   [0, 0, 0, 1, 2, -1, 0, 0],
   [0, 0, -1, 2, 1, 0, 0, 0],
@@ -12,6 +12,7 @@ const board: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
+let board: number[][] = defaultBoard;
 const directions = [
   [-1, -1],
   [-1, 0],
@@ -79,6 +80,12 @@ export const boardUseCase = {
       candidateUseCase.makeCandidate(board, turnColor);
       turnColor = 3 - turnColor;
     }
+    return board;
+  },
+  restartClick: (userId: UserId): number[][] => {
+    board = defaultBoard;
+    console.log(userId);
+    console.table(board);
     return board;
   },
 };
