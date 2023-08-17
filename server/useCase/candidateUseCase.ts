@@ -11,6 +11,7 @@ const directions = [
 
 export const candidateUseCase = {
   makeCandidate: (board: number[][], turnColor: number) => {
+    let candidateCount = 0;
     for (let subX = 0; subX < 8; subX++) {
       for (let subY = 0; subY < 8; subY++) {
         for (const direction of directions) {
@@ -33,6 +34,7 @@ export const candidateUseCase = {
                 3 - turnColor
               ) {
                 board[subY][subX] = -1;
+                candidateCount++;
                 break;
               }
             }
@@ -40,5 +42,6 @@ export const candidateUseCase = {
         }
       }
     }
+    return candidateCount;
   },
 };

@@ -22,6 +22,7 @@ const directions = [
   [-1, 1],
 ];
 let turnColor = 1;
+const zeroToSeven = [...Array(8)].map((_, i) => i);
 export const boardUseCase = {
   getBoard: () => board,
   clickBoard: (x: number, y: number, userId: UserId): number[][] => {
@@ -61,11 +62,11 @@ export const boardUseCase = {
       }
     }
     if (ok) {
-      for (let iY = 0; iY < 8; iY++) {
-        for (let iX = 0; iX < 8; iX++) {
-          board[iY][iX] = newBoard[iY][iX];
-        }
-      }
+      zeroToSeven.forEach((Y) => {
+        zeroToSeven.forEach((X) => {
+          board[Y][X] = newBoard[Y][X];
+        });
+      });
       board[y][x] = colorUseCase.createColor(userId);
       turnColor = 3 - turnColor;
     }
