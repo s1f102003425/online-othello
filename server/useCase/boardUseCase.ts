@@ -21,7 +21,7 @@ const directions = [
   [1, -1],
   [-1, 1],
 ];
-export let turnColor = 1;
+let turnColor = 1;
 export const boardUseCase = {
   getBoard: () => board,
   clickBoard: (x: number, y: number, userId: UserId): number[][] => {
@@ -34,7 +34,7 @@ export const boardUseCase = {
       }
       if (
         turnColor === colorUseCase.createColor(userId) &&
-        board[y][x] === 0 &&
+        board[y][x] <= 0 &&
         board[y + direction[1]][x + direction[0]] === 3 - colorUseCase.createColor(userId)
       ) {
         for (let i = 1; i < 8; i++) {
@@ -68,7 +68,6 @@ export const boardUseCase = {
       }
       board[y][x] = colorUseCase.createColor(userId);
       turnColor = 3 - turnColor;
-      //setTurnColor(3 - turnColor);
     }
     return board;
   },
