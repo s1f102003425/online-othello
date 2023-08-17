@@ -1,13 +1,14 @@
 import type { UserId } from '$/commonTypesWithClient/branded';
+import { candidateUseCase } from './candidateUseCase';
 import { colorUseCase } from './colorUseCase';
 
 const board: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 2, 0, 0, 0],
-  [0, 0, 0, 2, 1, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, -1, 0, 0, 0],
+  [0, 0, 0, 1, 2, -1, 0, 0],
+  [0, 0, -1, 2, 1, 0, 0, 0],
+  [0, 0, 0, -1, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
@@ -27,7 +28,14 @@ export const boardUseCase = {
   getBoard: () => board,
   clickBoard: (x: number, y: number, userId: UserId): number[][] => {
     console.log('ユーザーがタッチしたのは', x, y);
-    const newBoard = board.concat();
+    let newBoard = board.concat();
+    if (board[y][x] === -1) {
+      newBoard = board.map((row) => {
+        return row.map((value) => {
+          return value === -1 ? 0 : value;
+        });
+      });
+    }
     let ok = false;
     for (const direction of directions) {
       if (board[y + direction[1]] === undefined) {
@@ -68,6 +76,7 @@ export const boardUseCase = {
         });
       });
       board[y][x] = colorUseCase.createColor(userId);
+      candidateUseCase.makeCandidate(board, turnColor);
       turnColor = 3 - turnColor;
     }
     return board;

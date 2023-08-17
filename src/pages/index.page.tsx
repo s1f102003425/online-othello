@@ -1,9 +1,11 @@
+// import type { UserId } from '$/commonTypesWithClient/branded';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
+// import { colorDict, colorUseCase } from '../../server/useCase/colorUseCase';
 import { userAtom } from '../atoms/user';
 import { Cell } from '../components/Cell';
 import styles from './index.module.css';
@@ -60,7 +62,7 @@ const Home = () => {
             ))
           )}
         </div>
-        <h1>{turn === 1 ? '黒' : '白'}の手盤です</h1>
+        {/* <h1>{turn === 1 ? '黒' : '白'}の手盤です</h1> */}
       </div>
     </>
   );
