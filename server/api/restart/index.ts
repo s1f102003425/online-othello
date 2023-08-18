@@ -3,7 +3,6 @@ export type Methods = {
     resBody: string;
   };
   post: {
-    
     resBody: number[][];
   };
 };

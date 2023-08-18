@@ -3,8 +3,8 @@ import { defineController } from './$relay';
 
 export default defineController(() => ({
   get: () => ({ status: 200, body: 'Hello' }),
-  post: ({  user }) => ({
+  post: ({ user }) => ({
     status: 201,
-    body: boardUseCase.restartClick( user.id),
+    body: boardUseCase.restartClick(user.id),
   }),
 }));
