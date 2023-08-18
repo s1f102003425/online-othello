@@ -81,10 +81,13 @@ export const boardUseCase = {
       // let candidateCount = 0;
       // board.map((row) => row.map((n) => n === -1 && candidateCount++));
       // console.log(`候補地は${candidateCount}個`);
-      if (candidateUseCase.makeCandidate(board, turnColor)) {
+      if (
+        candidateUseCase.makeCandidate(board, turnColor) ||
+        candidateUseCase.makeCandidate(board, 3 - turnColor)
+      ) {
         turnColor = 3 - turnColor;
-      } else {
-        candidateUseCase.makeCandidate(board, 3- turnColor);
+      }else{
+        console.log("GameEnd")
       }
     }
     return board;
