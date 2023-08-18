@@ -71,7 +71,7 @@ const Home = () => {
         <div className={styles['restart-button']} onClick={() => restartClick()}>
           Restart
         </div>
-        {/* <h1>{turn === 1 ? '黒' : '白'}の手盤です</h1> */}
+        {/* <div>{turn === 1 ? '黒' : '白'}の手盤です</div> */}
       </div>
     </>
   );
