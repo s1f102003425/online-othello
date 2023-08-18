@@ -12,7 +12,7 @@ const defaultBoard: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
-let board: number[][] = defaultBoard;
+let board: number[][] = JSON.parse(JSON.stringify(defaultBoard));
 const directions = [
   [-1, -1],
   [-1, 0],
@@ -83,7 +83,7 @@ export const boardUseCase = {
     return board;
   },
   restartClick: (userId: UserId): number[][] => {
-    board = defaultBoard;
+    board = JSON.parse(JSON.stringify(defaultBoard));
     console.log(userId);
     console.table(board);
     return board;
