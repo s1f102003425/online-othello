@@ -77,12 +77,14 @@ export const boardUseCase = {
         });
       });
       board[y][x] = colorUseCase.createColor(userId);
-      candidateUseCase.makeCandidate(board, turnColor);
-      let candidateCount = 0;
-      board.map((row) => row.map((n) => n === -1 && candidateCount++));
-      console.log(`候補地は${candidateCount}個`);
-      if (candidateCount > 0) {
+      // candidateUseCase.makeCandidate(board, turnColor);
+      // let candidateCount = 0;
+      // board.map((row) => row.map((n) => n === -1 && candidateCount++));
+      // console.log(`候補地は${candidateCount}個`);
+      if (candidateUseCase.makeCandidate(board, turnColor)) {
         turnColor = 3 - turnColor;
+      } else {
+        candidateUseCase.makeCandidate(board, 3- turnColor);
       }
     }
     return board;
