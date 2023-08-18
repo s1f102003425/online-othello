@@ -40,9 +40,6 @@ const Home = () => {
     if (board !== undefined) {
       await apiClient.restart.$post({});
       await fetchBoard;
-      console.log('ok');
-    } else {
-      console.log('error');
     }
   };
   useEffect(() => {

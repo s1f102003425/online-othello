@@ -84,8 +84,8 @@ export const boardUseCase = {
   },
   restartClick: (userId: UserId): number[][] => {
     board = JSON.parse(JSON.stringify(defaultBoard));
+    turnColor = 1;
     console.log(userId);
-    console.table(board);
     return board;
   },
 };
