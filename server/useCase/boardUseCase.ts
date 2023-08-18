@@ -81,15 +81,15 @@ export const boardUseCase = {
       // let candidateCount = 0;
       // board.map((row) => row.map((n) => n === -1 && candidateCount++));
       // console.log(`候補地は${candidateCount}個`);
-      if (
-        candidateUseCase.makeCandidate(board, turnColor) ||
-        candidateUseCase.makeCandidate(board, 3 - turnColor)
-      ) {
+      if (candidateUseCase.makeCandidate(board, turnColor)) {
         turnColor = 3 - turnColor;
-      }else{
-        console.log("GameEnd")
+      } else if (candidateUseCase.makeCandidate(board, 3 - turnColor)) {
+        turnColor;
+      } else {
+        console.log('GameEnd');
       }
     }
+    console.log(`${turnColor === 1 ? '黒' : '白'}のターンです`);
     return board;
   },
   restartClick: (userId: UserId): number[][] => {

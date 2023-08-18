@@ -34,6 +34,8 @@ const Home = () => {
     }
     return stoneCount % 2 === 0 ? 1 : 2;
   };
+  // ポップアップを表示するための関数
+  
   const onClick = async (x: number, y: number) => {
     await apiClient.board.$post({ body: { x, y } });
     await fetchBoard();
@@ -42,6 +44,7 @@ const Home = () => {
     if (board !== undefined) {
       await apiClient.restart.$post({});
       await fetchBoard;
+      setTurn(1);
     }
   };
   useEffect(() => {
@@ -75,6 +78,7 @@ const Home = () => {
       <BasicHeader user={user} />
       <div className={styles.container}>
         <div className={styles.board}>
+          {/* <div className={styles["changed-turn"]}>手番が変わります</div> */}
           {board.map((row, y) =>
             row.map((color, x) => (
               <Cell key={`${x}-${y}`} x={x} y={y} color={color} onClick={() => onClick(x, y)} />
@@ -85,9 +89,8 @@ const Home = () => {
           Restart
         </div>
         <div>
-          黒:{blackCount} 白:{whiteCount}
+          黒:{blackCount} 白:{whiteCount} {turn === 1 ? '黒' : '白'}の手盤です
         </div>
-        {/* <div>{turn === 1 ? '黒' : '白'}の手盤です</div> */}
       </div>
     </>
   );
