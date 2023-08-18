@@ -13,6 +13,8 @@ import styles from './index.module.css';
 const Home = () => {
   const [user] = useAtom(userAtom);
   const [board, setBoard] = useState<number[][]>();
+  const [blackCount, setBlackCount] = useState<number>(2);
+  const [whiteCount, setWhiteCount] = useState<number>(2);
   const fetchBoard = async () => {
     const res = await apiClient.board.$get().catch(returnNull);
     if (res !== null) {
@@ -48,6 +50,17 @@ const Home = () => {
       clearInterval(cancelId);
     };
   }, []);
+  // 石の数をそれぞれ数える
+  useEffect(() => {
+    let newWhiteCount = 0;
+    let newBlackCount = 0;
+    board?.map((row) => row.map((n) => n === 1 && newBlackCount++));
+    board?.map((row) => row.map((n) => n === 2 && newWhiteCount++));
+    setBlackCount(newBlackCount);
+    setWhiteCount(newWhiteCount);
+    setBlackCount(2);
+    setWhiteCount(2);
+  }, [board]);
   // 手番を表示する
   useEffect(() => {
     if (board) {
@@ -70,6 +83,9 @@ const Home = () => {
         </div>
         <div className={styles['restart-button']} onClick={() => restartClick()}>
           Restart
+        </div>
+        <div>
+          黒:{blackCount} 白:{whiteCount}
         </div>
         {/* <div>{turn === 1 ? '黒' : '白'}の手盤です</div> */}
       </div>
