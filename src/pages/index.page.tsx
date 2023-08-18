@@ -35,7 +35,7 @@ const Home = () => {
     return stoneCount % 2 === 0 ? 1 : 2;
   };
   // ポップアップを表示するための関数
-  
+
   const onClick = async (x: number, y: number) => {
     await apiClient.board.$post({ body: { x, y } });
     await fetchBoard();
@@ -45,6 +45,8 @@ const Home = () => {
       await apiClient.restart.$post({});
       await fetchBoard;
       setTurn(1);
+      setBlackCount(2);
+      setWhiteCount(2);
     }
   };
   useEffect(() => {
@@ -61,8 +63,6 @@ const Home = () => {
     board?.map((row) => row.map((n) => n === 2 && newWhiteCount++));
     setBlackCount(newBlackCount);
     setWhiteCount(newWhiteCount);
-    setBlackCount(2);
-    setWhiteCount(2);
   }, [board]);
   // 手番を表示する
   useEffect(() => {
